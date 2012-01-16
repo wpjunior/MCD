@@ -1,0 +1,134 @@
+<html>
+  <head>
+    <title>MARJÓIAS</title>
+    <style>
+      body {font-size: 14px;}
+    </style>
+  </head>
+  <body>
+    <center>
+      <h1>MARJÓIAS</h1>
+      <p>(61) 8137-9054 / (62) 8197-8673</p>
+    </center>
+
+    <table BORDER="1" BORDERCOLOR="black">
+      <tbody>
+        <tr style="padding: 1px;">
+          <td style="width:90px;">Nome:</td>
+          <td colspan="3"></td>
+        </tr>
+        <tr style="padding: 1px;">
+          <td style="width:90px;">Endereço:</td>
+          <td colspan="3"></td>
+        </tr>
+        <tr style="padding: 1px;">
+          <td style="width:90px;">Cidade:</td>
+          <td></td>
+          <td>Entrega</td>
+          <td></td>
+        </tr>
+        <tr style="padding: 1px;">
+          <td style="width:90px;">Fone:</td>
+          <td></td>
+          <td>Devolução</td>
+          <td></td>
+        </tr>
+        <tr style="padding: 1px;">
+          <td style="width:90px;">CPF:</td>
+          <td></td>
+          <td>Comissão</td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+    <p clear="all">-</p>
+    {% for rowset in object.get_row_set %}
+    <table border="1" bordercolor="black" style="font-size: 12px;">
+      <thead>
+        <tr style="padding: 3px;">
+          <th colspan="3"><b>{{ rowset.r1.nome }}</b></th>
+          <th colspan="3"><b>{{ rowset.r2.nome }}</b></th>
+          <th colspan="3"><b>{{ rowset.r3.nome }}</b></th>
+        </tr>
+         <tr style="padding: 3px;">
+          <th>Código</th><th>Valor</th><th>Descrição</th>
+          <th>Código</th><th>Valor</th><th>Descrição</th>
+          <th>Código</th><th>Valor</th><th>Descrição</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in rowset.get_rows %}
+        <tr style="padding: 3px;">
+          {% with p=row.p1.produto %}
+          <td style="width: 70px;">{{ p.codigo }}</td>
+          <td style="width: 50px;">{{ p.valor|floatformat:2 }}</td>
+          <td style="width: 115px;">{{ p.desc }}</td>
+          {% endwith %}
+          {% with p=row.p2.produto %}
+          <td style="width: 70px;">{{ p.codigo }}</td>
+          <td style="width: 50px;">{{ p.valor|floatformat:2 }}</td>
+          <td style="width: 115px;">{{ p.desc }}</td>
+          {% endwith %}
+          {% with p=row.33.produto %}
+          <td style="width: 70px;">{{ p.codigo }}</td>
+          <td style="width: 50px;">{{ p.valor|floatformat:2 }}</td>
+          <td style="width: 115px;">{{ p.desc }}</td>
+          {% endwith %}
+        </tr>
+        {% endfor %}
+        <tr style="padding: 3px;">
+          <td colspan="2"><b>Total de peças</b></td><td>{{ rowset.r1.total }}</td>
+          <td colspan="2"><b>Total de peças</b></td><td>{{ rowset.r2.total }}</td>
+          <td colspan="2"><b>Total de peças</b></td><td>{{ rowset.r3.total }}</td>
+        </tr>
+        <tr style="padding: 3px;">
+          <td colspan="2"><b>Valor total do kit</b></td><td >{{ rowset.r1.valor_total|floatformat:2 }}</td>
+          <td colspan="2"><b>Valor total do kit</b></td><td >{{ rowset.r2.valor_total|floatformat:2 }}</td>
+          <td colspan="2"><b>Valor total do kit</b></td><td >{{ rowset.r3.valor_total|floatformat:2 }}</td>
+        </tr>
+      </tbody>
+    </table>
+    {% endfor %}
+    <p clear="all">-</p>
+    <table border="1" bordercolor="black" style="font-size: 13px;">
+      <thead>
+        <tr style="padding: 3px;">
+          <th>&nbsp</th>
+          <th>Valor (R$)</th>
+          <th>Qtd. de peças vendidas</th>
+          <th>Qtd. de peças devolvidas</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for cat in object.get_categorias %}
+        <tr style="padding: 3px;">
+          <td>{{ cat.nome }}</td>
+          <td>&nbsp</td><td>&nbsp</td><td>&nbsp</td>
+        </tr>
+        {% endfor %}
+        <tr style="padding: 3px;">
+          <td>TOTAL</td>
+          <td>&nbsp</td><td>&nbsp</td><td>&nbsp</td>
+        </tr>
+      </tbody>
+    </table>
+    <p clear="all">-</p>
+    <table border="1" bordercolor="black" style="font-size: 13px;">
+
+      <tbody>
+        <tr style="padding: 3px;">
+          <th>MARJÓIAS</th>
+          <th>&nbsp</th>
+          <th>Vencimento</th>
+        </tr>
+        <tr style="padding: 3px;">
+          <td>Comissão da Cliente</td>
+          <td>&nbsp</td><td>&nbsp</td>
+        </tr>
+        <tr style="padding: 3px;">
+          <td colspan="3">Assinatura da Cliente</td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
+</html>

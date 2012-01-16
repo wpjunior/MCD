@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block title %}Gerenciando Usuários{% endblock %}
+{% block header %}
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/datatables.min.css">
+<script type="text/javascript" src="{{ STATIC_URL }}js/jquery.dataTables.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/lethus.listBuilder.js"></script>
+<script type="text/javascript">
+$(document).ready( function (e) {
+    $("table.display").listbuilder({iDisplayLength: 50});
+});
+</script>
+
+
+{% endblock %}
+
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+{% block content-title %}
+<header id="header">
+  <hgroup>
+    <span id="title">
+      <b>Gerenciando Produtos</b>
+    </span>
+    
+  </hgroup>
+</header>
+{% endblock %}
+
+{% block content %}
+<a href="/consig/">Gerar consignação</a>
+<span id="toolbar" class="ui-widget-header ui-corner-all">
+  <a id="add" class="button-icon" href="{{ module_url }}/add/" rev="ui-icon-plus">Adicionar</a>
+  <a id="edit" class="alone-action button-icon dblclick" href="{{ module_url }}/%d/" rev="ui-icon-pencil">Editar</a>
+  <a id="delete" class="hide-nojs alone-action button-icon" href="{{ module_url }}/delete/%d/" rev="ui-icon-trash">Apagar</a>
+</span>
+
+<div id="list">
+  <table cellpadding="0" cellspacing="0" border="0" class="display" id="result">
+    <thead class="ui-corner-all">
+      <tr>
+	<th scope="col">ID</th>
+	<th scope="col">Código</th>
+	<th scope="col">Descrição</th>
+	<th scope="col">Categoria</th>
+	<th scope="col">Valor Unitário</th>
+      </tr>
+    </thead>
+    <tbody class="ui-corner-all">
+    </tbody>
+  </table>
+</div>
+
+{% endblock %}

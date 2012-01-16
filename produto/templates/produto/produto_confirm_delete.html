@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content-title %}
+<header id="header">
+  <hgroup>
+    <span id="title">
+      <b>Apagar produto ?</b>
+    </span>
+  </hgroup>
+</header>
+{% endblock %}
+
+{% block content %}
+Deseja excluir esta joia ?
+<p>
+Código: {{ object.codigo }}
+<p>
+
+<form action="." method="POST">{% csrf_token %}
+  <input type="button" value="Não" onclick="history.go(-1)">
+  <input type="submit" value="Sim"/>
+</form>
+{% endblock %}

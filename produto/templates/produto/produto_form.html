@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content-title %}
+<header id="header">
+  <hgroup>
+    <span id="title">
+      <b>Gerenciando Produto</b>
+    </span>
+  </hgroup>
+</header>
+{% endblock %}
+
+{% block content %}
+<form action="." method="POST">{% csrf_token %}
+  <table>
+    {{ form }}
+  </table>
+  <input type="button" value="Voltar" onclick="history.go(-1)">
+  <input type="submit" value="Salvar">
+</form>
+{% endblock %}
