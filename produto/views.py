@@ -7,7 +7,7 @@ from django.views.generic.edit import DeleteView
 
 
 class ProdutoListView(HybridListView):
-    json_object_list_fields = ['id', 'codigo', 'desc', 'cat.nome', 'valor_display']
+    json_object_list_fields = ['id', 'codigo', 'desc', 'get_cat_display', 'valor_display']
     sort_fields = ['id', 'codigo', 'desc', 'valor', 'cat']
     filter_fields = []
     paginate_by = 20

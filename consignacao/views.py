@@ -1,5 +1,7 @@
-# Create your views here.
+# -*- coding: utf-8 -*-
+
 import itertools
+from django.db.models import Q
 from django.views.generic.base import TemplateView, View
 from joiarara.produto.models import Produto, Categoria
 from joiarara.produto.responses import JSONResponse, HybridListView
@@ -9,7 +11,7 @@ from output import PDFView
 class ConsigView(HybridListView):
     template_name = "consig.html"
     json_object_list_fields = ['id', 'produto.codigo',
-                               'produto.desc', 'produto.cat.nome',
+                               'produto.desc', 'produto.get_cat_display',
                                'produto.valor_display']
     model = Consignacao
 
@@ -17,7 +19,7 @@ class ConsigView(HybridListView):
         term = self.request.GET.get('term')
 
         data = [p.codigo
-                for p in Produto.objects.filter(codigo__startswith=term)]
+                for p in Produto.objects.filter(Q(codigo__startswith=term)|Q(desc__startswith=term))]
 
         return JSONResponse(data)
 
@@ -72,29 +74,48 @@ class Row(object):
         self.p3 = p3
 
 class RowSet(object):
-    def __init__(self, r1=None, r2=None, r3=None):
+    def __init__(self, labels, r1=None, r2=None, r3=None):
         self.r1 = r1
         self.r2 = r2
         self.r3 = r3
+        self.labels = labels
 
     def get_rows(self):
         if self.r1:
-            r1 = self.r1.consigs
+            i1 = iter(self.r1)
         else:
-            r1 = itertools.cycle([None])
-
+            i1 = itertools.cycle([None])
+        
         if self.r2:
-            r2 = self.r2.consigs
+            i2 = iter(self.r2)
         else:
-            r2 = itertools.cycle([None])
-
+            i2 = itertools.cycle([None])
+        
         if self.r3:
-            r3 = self.r3.consigs
+            i3 = iter(self.r3)
         else:
-            r3 = itertools.cycle([None])
+            i3 = itertools.cycle([None])
 
-        for r in itertools.izip_longest(r1, r2, r3, fillvalue=None):
-            yield Row(*r)
+        while True:
+            try:
+                v1 = i1.next()
+            except StopIteration:
+                v1 = None
+
+            try:
+                v2 = i2.next()
+            except StopIteration:
+                v2 = None
+
+            try:
+                v3 = i3.next()
+            except StopIteration:
+                v3 = None
+
+            if not any((v1, v2, v3)):
+                break
+
+            yield Row(v1, v2, v3)
                 
 class GenerateConsigView(View):
     pdf_template = "consig/generate.html"
@@ -102,10 +123,23 @@ class GenerateConsigView(View):
         v = PDFView(self, self.pdf_template)
         return v.render()
 
-    def get_row_set(self):
-        for i in xrange(1, Categoria.objects.count(), 3):
-            rows = list(Categoria.objects.all()[i-1:i+2])
-            yield RowSet(*rows)
+    def row_set1(self):
+        count = Consignacao.objects.filter(produto__cat="br").count()
 
-    def get_categorias(self):
-        return Categoria.objects.all()
+        if (count % 2) == 0:
+            s = count / 2
+        else:
+            s = (count/2)+1
+
+        p1 = (Consignacao.objects.filter(produto__cat="br")[0:s],
+              Consignacao.objects.filter(produto__cat="br")[s:count],
+              Consignacao.objects.filter(produto__cat="an"))
+
+        return RowSet(("Brincos", "Brincos", u"Anéis"), *p1)
+
+    def row_set2(self):
+        p2 = (Consignacao.objects.filter(produto__cat="co"),
+              Consignacao.objects.filter(produto__cat="pu"),
+              Consignacao.objects.filter(produto__cat="pi"))
+        
+        return RowSet(("Correntes", "Pulseiras", "Pingentes"), *p2)
