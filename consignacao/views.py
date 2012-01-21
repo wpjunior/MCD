@@ -74,11 +74,22 @@ class Row(object):
         self.p3 = p3
 
 class RowSet(object):
-    def __init__(self, labels, r1=None, r2=None, r3=None):
+    def __init__(self, labels, cats, r1=None, r2=None, r3=None):
         self.r1 = r1
         self.r2 = r2
         self.r3 = r3
         self.labels = labels
+        
+        self.c1, self.c2, self.c3 = cats
+
+        if self.c1:
+            self.c1 = Categoria(self.c1)
+
+        if self.c2:
+            self.c2 = Categoria(self.c2)
+
+        if self.c3:
+            self.c3 = Categoria(self.c3)
 
     def get_rows(self):
         if self.r1:
@@ -135,11 +146,13 @@ class GenerateConsigView(View):
               Consignacao.objects.filter(produto__cat="br")[s:count],
               Consignacao.objects.filter(produto__cat="an"))
 
-        return RowSet(("Brincos", "Brincos", u"Anéis"), *p1)
+        return RowSet(("Brincos", "Brincos", u"Anéis"),
+                      ('br', None, 'an'), *p1)
 
     def row_set2(self):
         p2 = (Consignacao.objects.filter(produto__cat="co"),
               Consignacao.objects.filter(produto__cat="pu"),
               Consignacao.objects.filter(produto__cat="pi"))
         
-        return RowSet(("Correntes", "Pulseiras", "Pingentes"), *p2)
+        return RowSet(("Correntes", "Pulseiras", "Pingentes"),
+                      ('co', 'pu', 'pi'), *p2)
