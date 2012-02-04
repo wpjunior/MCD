@@ -11,6 +11,7 @@ from django.core.paginator import InvalidPage
 from django.utils.dateformat import format
 from django.views.generic import ListView
 from django.http import HttpResponse
+from django.db.models import Q
 
 class JSONResponse(HttpResponse):
     """ JSON response class """
