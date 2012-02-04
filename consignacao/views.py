@@ -13,6 +13,7 @@ class ConsigView(HybridListView):
     json_object_list_fields = ['id', 'produto.codigo',
                                'produto.desc', 'produto.get_cat_display',
                                'produto.valor_display']
+    filter_fields = ['produto__codigo', 'produto__desc']
     model = Consignacao
 
     def _auto_complete(self):
