@@ -129,7 +129,7 @@ class DataTableResponseMixin(object):
             page = paginator.page(page_number)
             return (paginator, page, page.object_list, page.has_other_pages())
         except InvalidPage:
-            raise Http404('Invalid page (%(page_number)s)' % {
+            raise http.Http404('Invalid page (%(page_number)s)' % {
                                 'page_number': page_number
             })
     
