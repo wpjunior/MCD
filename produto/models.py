@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+﻿# -*- coding: utf-8 -*-
 
 from django.db import models
 from django.core.validators import RegexValidator
@@ -42,4 +42,5 @@ class Produto(models.Model):
                            verbose_name="Categoria")
 
     def valor_display(self):
-        return "%0.2f" % self.valor
+	if self.valor and isinstance(self.valor, float):
+            return "%0.2f" % self.valor
