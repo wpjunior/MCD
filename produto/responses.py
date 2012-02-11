@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+﻿#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
 
@@ -103,8 +103,8 @@ class DataTableResponseMixin(object):
         Mudado para atender sorting, e filtering
         """
         self.all_objects = queryset._clone() #backup dos objetos
-
         queryset = self.filter_queryset(queryset) #filtra os dados
+        self.filtered_objects = queryset._clone()
         queryset = self.sort_queryset(queryset) #ordena os dados
         paginator = self.get_paginator(queryset, page_size, allow_empty_first_page=self.get_allow_empty())
         page = self.kwargs.get('page') or self.request.GET.get('page') or 1
@@ -154,7 +154,7 @@ class DataTableResponseMixin(object):
         data['aaData'] = object_list
 
         data['iTotalRecords'] = self.all_objects.count()
-        data['iTotalDisplayRecords'] =  len(object_list) #objs.count()
+        data['iTotalDisplayRecords'] =  self.filtered_objects.count()
 
         # para que as messagens do sistema sejam recebidas pelo listbuilder
         dump_msgs = []
