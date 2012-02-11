@@ -124,7 +124,7 @@ class DataTableResponseMixin(object):
             if page == 'last':
                 page_number = paginator.num_pages
             else:
-                raise Http404
+                raise http.Http404
         try:
             page = paginator.page(page_number)
             return (paginator, page, page.object_list, page.has_other_pages())
