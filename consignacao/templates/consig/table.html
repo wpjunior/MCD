@@ -16,17 +16,17 @@
     <tr style="padding: 1px;">
       {% with p=row.p1.produto %}
       <td style="width: 70px;">{{ p.codigo }}</td>
-      <td style="width: 50px;">{{ p.valor|floatformat:2 }}</td>
+      <td style="width: 50px;">{{ p.valor|floatformat:0 }}</td>
       <td style="width: 115px;">{{ p.desc }}</td>
       {% endwith %}
       {% with p=row.p2.produto %}
       <td style="width: 70px;">{{ p.codigo }}</td>
-      <td style="width: 50px;">{{ p.valor|floatformat:2 }}</td>
+      <td style="width: 50px;">{{ p.valor|floatformat:0 }}</td>
       <td style="width: 115px;">{{ p.desc }}</td>
       {% endwith %}
       {% with p=row.p3.produto %}
       <td style="width: 70px;">{{ p.codigo }}</td>
-      <td style="width: 50px;">{{ p.valor|floatformat:2 }}</td>
+      <td style="width: 50px;">{{ p.valor|floatformat:0 }}</td>
       <td style="width: 115px;">{{ p.desc }}</td>
       {% endwith %}
     </tr>
@@ -52,19 +52,19 @@
     </tr>
     <tr style="padding: 1px;">
       {% if rowset.c1 %}
-      <td colspan="2"><b>Valor total do kit</b></td><td >{{ rowset.c1.valor_total|floatformat:2 }}</td>
+      <td colspan="2"><b>Valor total do kit</b></td><td >{{ rowset.c1.valor_total|floatformat:0 }}</td>
       {% else %}
       <td colspan="2">&nbsp</td><td>&nbsp</td>
       {% endif %}
 
       {% if rowset.c2 %}
-      <td colspan="2"><b>Valor total do kit</b></td><td >{{ rowset.c2.valor_total|floatformat:2 }}</td>
+      <td colspan="2"><b>Valor total do kit</b></td><td >{{ rowset.c2.valor_total|floatformat:0 }}</td>
       {% else %}
       <td colspan="2">&nbsp</td><td>&nbsp</td>
       {% endif %}
 
       {% if rowset.c3 %}
-      <td colspan="2"><b>Valor total do kit</b></td><td >{{ rowset.c3.valor_total|floatformat:2 }}</td>
+      <td colspan="2"><b>Valor total do kit</b></td><td >{{ rowset.c3.valor_total|floatformat:0 }}</td>
       {% else %}
       <td colspan="2">&nbsp</td><td>&nbsp</td>
       {% endif %}
