@@ -1,5 +1,15 @@
 from django.db import models
 from joiarara.produto.models import Produto
-# Create your models here.
+from joiarara.pastas.models import Pasta
+
+from .constants import *
+
 class Consignacao(models.Model):
-    produto = models.ForeignKey(Produto)
+    pasta = models.ForeignKey(
+        Pasta,
+        verbose_name="Pasta")
+
+    status = models.CharField(
+        max_length=2,
+        choices=CONSIGNACAO_STATUS_CHOICES,
+        default='a')

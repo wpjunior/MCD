@@ -1,23 +1,25 @@
 {% extends "base.html" %}
 
-{% block content-title %}
-<header id="header">
-  <hgroup>
-    <span id="title">
-      <b>Apagar produto ?</b>
-    </span>
-  </hgroup>
-</header>
-{% endblock %}
-
 {% block content %}
+<div class="page-header">
+	<h3>Apagar produto ?</h3>
+</div>
+
 Deseja excluir esta joia ?
 <p>
-Código: {{ object.codigo }}
+	Código: {{ object.codigo }}
 <p>
 
-<form action="." method="POST">{% csrf_token %}
-  <input type="button" value="Não" onclick="history.go(-1)">
-  <input type="submit" value="Sim"/>
+<form action="." method="POST">
+	{% csrf_token %}
+	
+	<p class="btn-group">
+		<button type="button" class="btn" onclick="history.go(-1)">
+			Não
+		</button>
+		<button type="submit" class="btn btn-danger">
+			Sim
+		</button>
+	</p>
 </form>
 {% endblock %}

@@ -1,26 +1,84 @@
-<html>
-   <head>
-     <title>{{ title }}</title>
-     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/style.css"/>
-     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/form.css"/>
-     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/smoothness/jquery-ui.min.css"/>
-     <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.js"></script>
-     <script type="text/javascript" src="{{ STATIC_URL }}js/crsf.min.js"></script>
-     <script type="text/javascript" src="{{ STATIC_URL }}js/jquery-ui.min.js"></script>
-     {% block header %}
-     {% endblock %}
-   </head>
-   <body>
-     <div class="middle font1">
-       <div id="content">
-         {% block content-title %}{% endblock %}
-         <div class="base">
-           <section id="main">
-             {% block content %}
-             {% endblock %}
-           </section>
-         </div>
-       </div>
-     </div>
-   </body>
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="shortcut icon" href="{{STATIC_URL}}img/favicon.png" type="image/x-icon" />
+    <title>{% block title %}{% endblock %} Joia rara 2.0</title>
+    
+    {% block media %}
+
+    {% block css %}
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/bootstrap-responsive.min.css"/>
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/custom.css"/>
+	{{ form.media.css }}
+    {% endblock %}
+
+	{% block js %}
+    <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/underscore.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/crsf.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/custom.js"></script>
+	{{ form.media.js }}
+    {% endblock %}
+
+    {% endblock %}
+    {% block header %} {% endblock %}
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="container header">
+        <div>
+          <h2 id="logo">Joia rara 2.0</h2>
+        </div>
+        <div id="menu" class="subnav">
+          <ul class="nav nav-pills">
+            <li><a href="/"><i class="icon-list"></i>Produtos</a></li>
+            <li><a href="/consignacoes/"><i class="icon-share"></i>Consignações</a></li>
+            <li><a href="/pastas/"><i class="icon-folder-open"></i>Pastas</a></li>
+          </ul>
+        </div>
+      </div>
+      <div id="content" class="container">
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert {{ message.tags }}">
+          <a class="close" data-dismiss="alert" href="#">×</a>
+          
+          {{ message|safe }}
+        </div>
+        {% endfor %}
+        {% endif %}
+
+        {% block content %}
+        {% endblock %}
+        <div class="push"></div>
+      </div>
+    </div>
+
+
+    <div class="container">
+      <div class="footer">
+        <div class="span6">
+          <span class="copyright">
+            ©2012 Lethus
+          </span>
+          <span class="contato">
+            <a href="http://www.lethus.com.br/contato/" target="_blank">Contato</a>
+          </span>
+        </div>
+        <div class="span6">
+          <span class="version">
+            Versão: {{ VERSION }}
+          </span>
+          <span class="ajuda">
+            <a href="http://suporte.lethus.com.br/" target="_blank">Central de ajuda</a> 
+          </span>
+        </div>
+      </div>
+    </div>
+
+  </body>
 </html>

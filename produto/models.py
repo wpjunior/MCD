@@ -1,10 +1,14 @@
-﻿# -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 
 from django.db import models
 from django.core.validators import RegexValidator
 
-codigo_validator = RegexValidator('\w+$',
-                                  "Código não pode conter espaços nem simbolos especiais")
+from joiarara.pastas.models import Pasta
+
+codigo_validator = RegexValidator(
+    '\w+$',
+    "Código não pode conter espaços nem simbolos especiais")
+
 class Categoria(object):
     def __init__(self, name):
         self.name = name
@@ -32,6 +36,11 @@ class Produto(models.Model):
                               verbose_name=u"Código")
     desc = models.CharField(max_length=100,
                             verbose_name="Descrição")
+
+    valor_compra = models.FloatField(
+        verbose_name="Valor de compra",
+        null=True)
+
     valor = models.FloatField()
     cat = models.CharField(max_length=2,
                            choices=(("br", "Brincos"),
@@ -44,3 +53,18 @@ class Produto(models.Model):
     def valor_display(self):
 	if self.valor and isinstance(self.valor, float):
             return "%0.2f" % self.valor
+
+    def valor_compra_display(self):
+        if self.valor_compra and isinstance(self.valor_compra, float):
+            return "%0.2f" % self.valor_compra
+
+        return self.valor_compra
+
+class ProdutoEstoque(models.Model):
+    produto = models.ForeignKey(
+        Produto)
+    pasta = models.ForeignKey(
+        Pasta, blank=True, null=True)
+
+    qtde = models.IntegerField(
+        verbose_name="Quantidade")

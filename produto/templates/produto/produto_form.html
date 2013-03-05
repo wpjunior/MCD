@@ -1,21 +1,22 @@
 {% extends "base.html" %}
 
-{% block content-title %}
-<header id="header">
-  <hgroup>
-    <span id="title">
-      <b>Gerenciando Produto</b>
-    </span>
-  </hgroup>
-</header>
-{% endblock %}
 
 {% block content %}
-<form action="." method="POST">{% csrf_token %}
-  <table>
-    {{ form }}
-  </table>
-  <input type="button" value="Voltar" onclick="history.go(-1)">
-  <input type="submit" value="Salvar">
+<div class="page-header">
+	<h3>
+		{% if object %}Editando{% else %}Adicionando{% endif %} produto
+		<small>* são obrigatórios</small>
+	</h3>
+</div>
+
+<form action="." method="POST">
+	{% include "form_snippet.html" %}
+
+	<p class="btn-group">
+		<button type="button" class="btn" onclick="history.go(-1)">
+			Voltar
+		</button>
+		<input type="submit" value="Salvar" class="btn btn-primary"></input>
+	</p>
 </form>
 {% endblock %}

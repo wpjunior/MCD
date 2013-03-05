@@ -1,59 +1,54 @@
 {% extends "base.html" %}
-{% block title %}Gerenciando Usuários{% endblock %}
+{% block title %}Produtos{% endblock %}
 {% block header %}
-<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/datatables.min.css">
 <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.dataTables.js"></script>
-<script type="text/javascript" src="{{ STATIC_URL }}js/lethus.listBuilder.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/lethus.bootstrapListBuilder.js"></script>
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/lethus.bootstrapListBuilder.css" />
+
 <script type="text/javascript">
 $(document).ready( function (e) {
-    $("table.display").listbuilder({iDisplayLength: 100});
+    $("#list table").listbuilder({iDisplayLength: 100});
 });
 </script>
 
 
 {% endblock %}
 
-{% if messages %}
-<ul class="messages">
-    {% for message in messages %}
-    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-    {% endfor %}
-</ul>
-{% endif %}
-
-{% block content-title %}
-<header id="header">
-  <hgroup>
-    <span id="title">
-      <b>Gerenciando Produtos</b>
-    </span>
-    
-  </hgroup>
-</header>
-{% endblock %}
-
 {% block content %}
-<a href="/consig/">Gerar consignação</a>
-<span id="toolbar" class="ui-widget-header ui-corner-all">
-  <a id="add" class="button-icon" href="{{ module_url }}/add/" rev="ui-icon-plus">Adicionar</a>
-  <a id="edit" class="alone-action button-icon dblclick" href="{{ module_url }}/%d/" rev="ui-icon-pencil">Editar</a>
-  <a id="delete" class="hide-nojs alone-action button-icon" href="{{ module_url }}/delete/%d/" rev="ui-icon-trash">Apagar</a>
-</span>
+<div class="page-header">
+  <h3>Gerenciando Produtos</h3>
+</div>
+
+<div id="toolbar" class="btn-group">
+  <a id="add-btn" class="btn" href="{{ module_url }}/add/">
+    <i class="icon-plus"></i> Adicionar
+  </a>
+  <a id="edit-btn" class="btn alone-action dblclick" href="{{ module_url }}/%d/">
+    <i class="icon-pencil"></i> Editar
+  </a>
+  <a id="delete-btn" class="alone-action btn" href="{{ module_url }}/delete/%d/">
+      <i class="icon-remove"></i> Apagar
+  </a>
+  <a id="stock-btn" class="alone-action btn" href="{{ module_url }}/stock/%d/">
+      <i class="icon-check"></i> Estoque
+  </a>
+</div>
 
 <div id="list">
-  <table cellpadding="0" cellspacing="0" border="0" class="display" id="result">
-    <thead class="ui-corner-all">
-      <tr>
-	<th scope="col">ID</th>
-	<th scope="col">Código</th>
-	<th scope="col">Descrição</th>
-	<th scope="col">Categoria</th>
-	<th scope="col">Valor Unitário</th>
-      </tr>
-    </thead>
-    <tbody class="ui-corner-all">
-    </tbody>
-  </table>
+	<table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered">
+		<thead>
+			<tr>
+				<th scope="col">ID</th>
+				<th scope="col">Código</th>
+				<th scope="col">Descrição</th>
+				<th scope="col">Categoria</th>
+				<th scope="col">Valor Compra</th>
+				<th scope="col">Valor Unitário</th>
+			</tr>
+		</thead>
+		<tbody class="ui-corner-all">
+		</tbody>
+	</table>
 </div>
 
 {% endblock %}

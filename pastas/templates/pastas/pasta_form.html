@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+<div class="page-header">
+	<h3>
+		Deseja adicionar uma nova pasta ?
+	</h3>
+</div>
+
+<form action="." method="POST">
+	{% include "form_snippet.html" %}
+
+	<p class="btn-group">
+		<button type="button" class="btn" onclick="history.go(-1)">
+			Não
+		</button>
+		<input type="submit" value="Sim" class="btn btn-primary"></input>
+	</p>
+</form>
+{% endblock %}
