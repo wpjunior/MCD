@@ -11,9 +11,22 @@ urlpatterns = patterns(
     url(r'^add/$', ProdutoAddView.as_view()),
     url(r'^(?P<pk>\d+)/$', ProdutoUpdateView.as_view()),
     url(r'^delete/(?P<pk>\d+)/$', ProdutoDeleteView.as_view()),
-    url(r'^consig/$', ConsigView.as_view()),
-    url(r'^consig/generate/$', GenerateConsigView.as_view()),
+    url(r'^stock/(?P<pk>\d+)/$', ProdutoStockView.as_view()),
 
+    url(r'^entrada/$', EntradaProdutoView.as_view()),
+
+    url(r'^consignacoes/$', ConsignacaoListView.as_view()),
+    url(r'^consignacoes/add/$', ConsignacaoAddView.as_view()),
+    url(r'^consignacoes/produtos/(?P<pk>\d+)/$',
+        ConsignacaoProdutosView.as_view()),
+    url(r'^consignacoes/print/(?P<pk>\d+)/$',
+        ConsignacaoPrintView.as_view()),
+
+    url(r'^consignacoes/finish/(?P<pk>\d+)/$',
+        ConsignacaoFinishView.as_view()),
+
+    url(r'^consignacoes/detail/(?P<pk>\d+)/$',
+        ConsignacaoDetailView.as_view()),
 
     url(r'^pastas/$', ListPastaView.as_view()),
     url(r'^pastas/add/$', AddPastaView.as_view()),

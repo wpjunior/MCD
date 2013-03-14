@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Entrada de produtos{% endblock %}
+
+{% block header %}
+<script type="text/javascript" src="{{ STATIC_URL }}js/bootstrap-queryable-combobox.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/entrada.js"></script>
+<link href="{{ STATIC_URL }}css/bootstrap-combobox.css" type="text/css" media="all" rel="stylesheet" />
+{% endblock %}
+
+{% block content %}
+<div class="page-header">
+	<h3>Entrada de produtos</h3>
+</div>
+<div class="well form-inline">
+	<select id="produto-select"></select>
+	<input type="text" id="produto-qtde" class="input-mini" placeholder="Qtd"></input>
+	
+	<a id="add-produto" class="btn" href="#">
+		<i class="icon-plus"></i>
+		Adicionar produto
+	</a>
+	<p id="qtde-container" class="hide">
+		Quantidade em estoque: <span id="qtde-estoque"></span>
+	</p>
+</div>
+
+<p id="response-text"></p>
+
+{% endblock %}

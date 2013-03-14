@@ -572,7 +572,7 @@ ListBuilder.prototype = {
 
 	// Função de Clicicke
 	if (me.settings.selectable) {
-	    elem.find('tbody tr').live('click', function (event) {
+	    elem.delegate('tbody tr', 'click', function (event) {
 		event.preventDefault();
 		var aData = me.oTable.fnGetData( this );
 		if (!aData)
@@ -604,7 +604,7 @@ ListBuilder.prototype = {
                     me.selectOneFn(aData);
 
 		return false;
-	    }).live('dblclick', function (event) {
+	    }).delegate('tbody tr','dblclick', function (event) {
 		event.preventDefault()
 		$('a.dblclick').trigger('click');
 		return false;

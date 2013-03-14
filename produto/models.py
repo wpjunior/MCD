@@ -10,13 +10,15 @@ codigo_validator = RegexValidator(
     "Código não pode conter espaços nem simbolos especiais")
 
 class Categoria(object):
-    def __init__(self, name):
+    def __init__(self, consignacao, name):
+        self.consignacao = consignacao
         self.name = name
 
     @property
     def consigs(self):
-        from joiarara.consignacao.models import Consignacao
-        return Consignacao.objects.filter(produto__cat=self.name)
+        from joiarara.consignacao.models import ConsignacaoItem
+        return ConsignacaoItem.objects.filter(produto__cat=self.name,
+                                              consignacao=self.consignacao)
 
     @property
     def total(self):
@@ -24,9 +26,12 @@ class Categoria(object):
 
     @property
     def valor_total(self):
-        from joiarara.consignacao.models import Consignacao
+        from joiarara.consignacao.models import ConsignacaoItem
         from django.db.models import Sum
-        data = Consignacao.objects.filter(produto__cat=self.name).aggregate(Sum('produto__valor'))
+        data = ConsignacaoItem.objects.filter(
+            produto__cat=self.name,
+            consignacao=self.consignacao).aggregate(Sum('produto__valor'))
+
         return data['produto__valor__sum']
 
 class Produto(models.Model):

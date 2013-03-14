@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+<div class="page-header">
+	<h3>
+		Consignação já está finalizada<br/>
+		<small>Não é possivel concluir a operação para uma consignação finalizada, é apenas disponivel ver os <a href="{{ object.get_detail_url }}">Detalhes</a></small>
+	</h3>
+</div>
+{% endblock %}

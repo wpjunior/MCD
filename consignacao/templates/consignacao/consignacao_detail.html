@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="page-header">
+	<h3>
+		Detalhes da consignação finalizada
+	</h3>
+</div>
+
+<table class="table table-bordered table-hover">
+	<tbody>
+		<tr>
+			<th style="width: 260px;">Número:</th>
+			<td>{{ object.id }}</td>
+		</tr>
+		<tr>
+			<th>Total de itens vendidos:</th>
+			<td>{{ object.total_vendidos }}</td>
+		</tr>
+		<tr>
+			<th>Total de itens não-vendidos:</th>
+			<td>{{ object.total_nao_vendidos }}</td>
+		</tr>
+		<tr>
+			<th>Total de itens:</th>
+			<td>{{ object.items.count }}</td>
+		</tr>
+		<tr>
+			<th>Valor total dos itens vendidos:</th>
+			<td>{{ object.valor_total_vendidos|floatformat:0 }}</td>
+		</tr>
+		<tr>
+			<th>Total pago pelos os itens vendidos:</th>
+			<td>{{ object.valor_total_bruto_vendidos|floatformat:0 }}</td>
+		</tr>
+		<tr>
+			<th>Lucro obtido:</th>
+			<td>{{ object.lucro|floatformat:0 }}</td>
+		</tr>
+	</tbody>
+</table>
+
+<br/><br/>
+
+<table class="table table-bordered table-hover">
+	<thead>
+		<tr>
+			<th>Código</th>
+			<th>Produto</th>
+			<th>Valor bruto</th>
+			<th>Valor</th>
+			<th>Vendido</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for item in object.items %}
+		<tr class="{% if item.vendido %}success{% else %}warning{% endif %}">
+			<td>{{ item.produto.codigo }}</td>
+			<td>{{ item.produto.desc }}</td>
+			<td>{{ item.produto.valor_bruto|floatformat:0 }}</td>
+			<td>{{ item.produto.valor|floatformat:0 }}</td>
+			<td>{% if item.vendido %}Sim{% else %}Não{% endif %}</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+{% endblock %}
