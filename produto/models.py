@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 import locale
-
-locale.setlocale(locale.LC_ALL, 'pt_BR.utf8')
 from django.db import models
 
 class Produto(models.Model):

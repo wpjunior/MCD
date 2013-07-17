@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 
 import locale
-locale.setlocale(locale.LC_ALL, 'pt_BR.utf8')
-
 from django.views.generic import TemplateView
 from django.shortcuts import render
 from django.db.models import Q, Sum
