@@ -2,7 +2,7 @@
 
 __all__ = ('json_response',)
 
-from joiarara.produto.responses import JSONResponse
+from MCD.produto.responses import JSONResponse
 
 def json_response(f):
     """

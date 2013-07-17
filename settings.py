@@ -1,6 +1,6 @@
 import os
 PROJECT_PATH = os.path.dirname(os.path.realpath(__file__))
-# Django settings for joiarara project.
+# Django settings for MCD project.
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -29,7 +29,7 @@ DATABASES = {
 # timezone as the operating system.
 # If running in a Windows environment this must be set to the same as your
 # system time zone.
-TIME_ZONE = 'America/Chicago'
+TIME_ZONE = 'America/Sao_Paulo'
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
@@ -102,7 +102,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
 )
 
-ROOT_URLCONF = 'joiarara.urls'
+ROOT_URLCONF = 'MCD.urls'
 
 TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
@@ -116,10 +116,9 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'joiarara.common',
-    'joiarara.pastas',
-    'joiarara.produto',
-    'joiarara.consignacao'
+    'MCD.common',
+    'MCD.produto',
+    'MCD.orcamento'
 )
 
 # A sample logging configuration. The only tangible logging

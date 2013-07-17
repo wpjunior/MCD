@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block title %}Novo orçamento{% endblock %}
+
+{% block js %}
+{{ block.super }}
+<script type="text/javascript" src="{{ STATIC_URL }}js/bootstrap-queryable-combobox.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/jquery.price_format.js"></script>
+<script type="text/javascript" src="/static/js/orcamento.js"></script>
+{% endblock %}
+
+{% block css %}
+{{ block.super }}
+<link href="{{ STATIC_URL }}css/bootstrap-combobox.css" type="text/css" media="all" rel="stylesheet" />
+{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <h3>Novo Orçamento</h3>
+</div>
+
+<div class="well">
+	<div class="pull-left">
+		<label>Produto</label>
+		<select id="produto-select"></select>
+	</div>
+	<div id="produto-container" class="hide">
+		<div class="pull-left" style="padding-left: 10px">
+			<label>Quantidade</label>
+			<input id="id_qtde" type="number" class="input-small" value="1"></input>
+		</div>
+		<div class="pull-left" style="padding-left: 10px">
+			<label>Preço de compra</label>
+			<input id="id_preco_compra" type="text" class="input-small money" readonly="readonly"></input>
+		</div>
+		<div class="pull-left" style="padding-left: 10px">
+			<label>Preço de venda</label>
+			<input id="id_preco_venda" type="text" class="input-small money"></input>
+		</div>
+	</div>
+	<br clear="all"/>
+	<p class="btn-group">
+		<a id="add-produto" href="#" class="btn btn-primary">
+			<i class="icon-plus icon-white"></i>
+			Adicionar produto
+		</a>
+		<a id="clear-produtos" href="#" class="btn btn-danger">
+			<i class="icon-minus icon-white"></i>
+			Limpar produtos
+		</a>
+		<a href="./?cmd=print_orcamento" class="btn">
+			<i class="icon-print"></i>
+			Imprimir orçamento
+		</a>
+	</p>
+</div>
+
+<div id="preview"></div>
+
+{% endblock %}

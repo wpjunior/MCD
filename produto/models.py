@@ -1,75 +1,38 @@
 # -*- coding: utf-8 -*-
+import locale
 
+locale.setlocale(locale.LC_ALL, 'pt_BR.utf8')
 from django.db import models
-from django.core.validators import RegexValidator
-
-from joiarara.pastas.models import Pasta
-
-codigo_validator = RegexValidator(
-    '\w+$',
-    "Código não pode conter espaços nem simbolos especiais")
-
-class Categoria(object):
-    def __init__(self, consignacao, name):
-        self.consignacao = consignacao
-        self.name = name
-
-    @property
-    def consigs(self):
-        from joiarara.consignacao.models import ConsignacaoItem
-        return ConsignacaoItem.objects.filter(produto__cat=self.name,
-                                              consignacao=self.consignacao)
-
-    @property
-    def total(self):
-        return self.consigs.count()
-
-    @property
-    def valor_total(self):
-        from joiarara.consignacao.models import ConsignacaoItem
-        from django.db.models import Sum
-        data = ConsignacaoItem.objects.filter(
-            produto__cat=self.name,
-            consignacao=self.consignacao).aggregate(Sum('produto__valor'))
-
-        return data['produto__valor__sum']
 
 class Produto(models.Model):
-    codigo = models.CharField(max_length=50,
-                              unique=True,
-                              validators=[codigo_validator],
-                              verbose_name=u"Código")
-    desc = models.CharField(max_length=100,
-                            verbose_name="Descrição")
+    desc = models.CharField(
+        max_length=150,
+        verbose_name="Descrição")
+
+    marca = models.CharField(
+        max_length=150,
+        null=True, blank=True,
+        verbose_name="Marca")
 
     valor_compra = models.FloatField(
         verbose_name="Valor de compra",
         null=True)
 
-    valor = models.FloatField()
-    cat = models.CharField(max_length=2,
-                           choices=(("br", "Brincos"),
-                                    ("an", u"Anéis"),
-                                    ("co", "Correntes"),
-                                    ("pu", "Pulseiras"),
-                                    ("pi", "Pingentes")),
-                           verbose_name="Categoria")
+    valor_venda = models.FloatField(
+        verbose_name="Valor de venda")
 
-    def valor_display(self):
-	if self.valor and isinstance(self.valor, float):
-            return "%0.2f" % self.valor
+    def valor_venda_display(self):
+        if self.valor_venda:
+            return locale.format('%0.2f', self.valor_venda, 1)
+
 
     def valor_compra_display(self):
-        if self.valor_compra and isinstance(self.valor_compra, float):
-            return "%0.2f" % self.valor_compra
+        if self.valor_compra:
+            return locale.format('%0.2f', self.valor_compra, 1)
 
-        return self.valor_compra
+    def get_autocomplete_display(self):
+        if self.desc and self.marca:
+            return u"%s - %s" % (self.desc, self.marca)
 
-class ProdutoEstoque(models.Model):
-    produto = models.ForeignKey(
-        Produto)
-    pasta = models.ForeignKey(
-        Pasta, blank=True, null=True)
-
-    qtde = models.IntegerField(
-        verbose_name="Quantidade")
+        return self.desc
+        

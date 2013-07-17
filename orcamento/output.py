@@ -16,8 +16,8 @@ except ImportError:
 __all__ = ('PDFView',)
 
 class PDFView(object):
-    def __init__(self, object, template):
-        self.object = object
+    def __init__(self, context, template):
+        self.context = context
         self.template = template
         self.open_images = []
 
@@ -26,9 +26,7 @@ class PDFView(object):
 
     def render(self):
         temp = get_template(self.template)
-        html  = temp.render(
-            Context({'object': self.object,
-                     'exclude_links': True}))
+        html  = temp.render(Context(self.context))
 
         result = StringIO()
         pdf = pisa.pisaDocument(

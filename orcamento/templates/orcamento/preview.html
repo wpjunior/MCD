@@ -1,0 +1,41 @@
+<table class="table table-bordered">
+	<thead>
+		<tr>
+			<th>Item</th>
+			<th>Produto</th>
+			<th style="width: 50px;">Quantidade</th>
+			<th style="width: 150px;">Preço de compra</th>
+			<th style="width: 150px;">Preço de venda</th>
+			<th style="width: 150px;">Preço de orçamento</th>
+			<th style="width: 150px;">Preço total</th>
+			<th style="width: 90px;">&nbsp</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for item in items %}
+		<tr rel="{{ item.id }}">
+			<td>{{ forloop.counter }}</td>
+			<td>{{ item.produto.desc }}</td>
+			<td>{{ item.qtde }}</td >
+			<td>{{ item.produto.valor_compra_display }}</td >
+			<td>{{ item.produto.valor_venda_display }}</td>
+			<td>{{ item.valor_item_display }}</td>
+			<td>{{ item.valor_total_display }}</td>
+			<td><a href="#" rel="{{ item.pk }}" class="btn btn-small btn-danger remove-item">
+					Remover
+				</a>
+			</td>
+		</tr>
+		{% empty %}
+		<tr>
+			<td colspan="8">Nenhum produto encontrado.</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+	{% if items %}
+	<tfoot>
+		<th colspan="6">Valor total</th>
+		<td>{{ valor_total }}</td>
+	</tfoot>
+	{% endif %}
+</table>

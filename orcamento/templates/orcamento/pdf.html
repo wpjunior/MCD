@@ -1,0 +1,99 @@
+<html>
+  <head>
+    <title>DUTRA Materias para construção</title>
+    <style>
+      @page {
+        size: a4;
+        margin: 1cm;
+      } 
+      body {font-size: 12px;}
+	  .table-bordered {
+	  border: 1px solid #ddd;
+	  border-collapse: separate;
+	  border-left: 0;
+	  border-radius: 4px;
+	  width: 100%;
+	  margin-bottom: 20px;
+	  }
+	  .table th, .table td {
+	  padding: 5px;
+	  text-align: left;
+	  vertical-align: top;
+	  border-top: 1px solid #ddd;
+	  }
+	  .table th {
+	  font-weight: bold;
+	  }
+	  .table-bordered th, .table-bordered td {
+	  border-left: 1px solid #ddd;
+	  }
+    </style>
+  </head>
+  <body>
+    <center>
+      <h1 style="padding: 0px; border: 0px;">DUTRA Materias para construção</h1>
+      <p style="padding: 0px; border: 0px;">FONE: (62) 3338-1329</p>
+	  <h2>Orçamento</h2>
+    </center>
+
+	 <table class="table table-bordered">
+		 <tbody>
+			 <tr>
+				 <td style="width: 110px;">Cliente</td>
+				 <td></td>
+				 <td style="width: 90px;">Tel.</td>
+				 <td style="width: 150px;"></td>
+			 </tr>
+			 <tr>
+				 <td style="width: 110px;">Endereço</td>
+				 <td colspan="3"></td>
+			 </tr>
+			 <tr>
+				 <td style="width: 110px;">Condições pgto.</td>
+				 <td colspan="3"></td>
+			 </tr>
+			 <tr>
+				 <td>Vendedor</td>
+				 <td>&nbsp</td>
+				 <td style="width: 110px;">Data</td>
+				 <td>{% now "d/m/Y" %}</td>
+			 </tr>
+		 </tbody>
+	 </table>
+	 <br clear="all"/>
+
+	 <table class="table table-bordered">
+		 <thead>
+			 <tr>
+				 <th style="width: 50px;">Item</th>
+				 <th>Produto</th>
+				 <th style="width: 100px;">Quantidade</th>
+				 <th style="width: 150px;">Preço unitário</th>
+				 <th style="width: 150px;">Preço total</th>
+			 </tr>
+		 </thead>
+		 <tbody>
+			 {% for item in items %}
+			 <tr>
+				 <td>{{ forloop.counter }}</td>
+				 <td>{{ item.produto.desc }}</td>
+				 <td>{{ item.qtde }}</td >
+				 <td>{{ item.valor_item_display }}</td>
+				 <td>{{ item.valor_total_display }}</td>
+
+			 </tr>
+			 {% empty %}
+			 <tr>
+				 <td colspan="5">Nenhum produto encontrado.</td>
+			 </tr>
+			 {% endfor %}
+		 </tbody>
+		 {% if items %}
+		 <tfoot>
+			 <th colspan="4">Valor total</th>
+			 <td>{{ valor_total }}</td>
+		 </tfoot>
+		 {% endif %}
+	 </table>
+  </body>
+</html>
