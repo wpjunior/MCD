@@ -34,3 +34,5 @@ class Produto(models.Model):
 
         return self.desc
         
+    class Meta:
+        ordering = ['desc']

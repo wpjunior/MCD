@@ -53,11 +53,15 @@ class OrcamentoView(TemplateView):
 
     def _preview_orcamento(self):
         items = Item.objects.all().order_by('-pk')
-
+        cond_pagto = self.request.GET.get('cond_pagto')
         
         valor_total = items.aggregate(Sum(
             'valor_total')).get('valor_total__sum', 0)
+        
         if valor_total:
+            if cond_pagto == 'c':
+                valor_total = valor_total * 1.04
+                
             valor_total = locale.format(
                 '%0.2f', valor_total, 1)
         
@@ -105,11 +109,17 @@ class OrcamentoView(TemplateView):
 
     def _print_orcamento(self):
         items = Item.objects.all().order_by('-pk')
-
+        cond_pagto = self.request.GET.get('cond_pagto')
+        cliente = self.request.GET.get('cliente')
+        endr = self.request.GET.get('endr')
+        telefone = self.request.GET.get('telefone')
         
         valor_total = items.aggregate(Sum(
             'valor_total')).get('valor_total__sum', 0)
         if valor_total:
+            if cond_pagto == 'c':
+                valor_total = valor_total * 1.04
+                
             valor_total = locale.format(
                 '%0.2f', valor_total, 1)
             

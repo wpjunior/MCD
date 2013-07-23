@@ -20,39 +20,70 @@
 
 <div class="well">
 	<div class="pull-left">
-		<label>Produto</label>
-		<select id="produto-select"></select>
+		<div class="pull-left">
+			<label>Produto</label>
+			<select id="produto-select"></select>
+		</div>
+		<div id="produto-container" class="hide" style="width:690px;">
+			<div class="pull-left" style="padding-left: 10px">
+				<label>Quantidade</label>
+				<input id="id_qtde" type="number" class="input-small" value="1"></input>
+			</div>
+			<div class="pull-left" style="padding-left: 10px">
+				<label>Preço de compra</label>
+				<input id="id_preco_compra" type="text" class="input-small money" readonly="readonly"></input>
+			</div>
+			<div class="pull-left" style="padding-left: 10px">
+				<label>Preço de venda</label>
+				<input id="id_preco_venda" type="text" class="input-small money"></input>
+			</div>
+			<br clear="all"/>
+		</div>
+		
+		<br clear="all" />
+		<p class="btn-group">
+			<a id="add-produto" href="#" class="btn btn-primary">
+				<i class="icon-plus icon-white"></i>
+				Adicionar produto
+			</a>
+			<a id="clear-produtos" href="#" class="btn btn-danger">
+				<i class="icon-minus icon-white"></i>
+				Limpar produtos
+			</a>
+			<a id="print-orcamento" class="btn">
+				<i class="icon-print"></i>
+				Imprimir orçamento
+			</a>
+		</p>
 	</div>
-	<div id="produto-container" class="hide">
-		<div class="pull-left" style="padding-left: 10px">
-			<label>Quantidade</label>
-			<input id="id_qtde" type="number" class="input-small" value="1"></input>
+	<div id="form" class="pull-right">
+		<div class="pull-left">
+			<label>Cliente</label>
+			<input id="id_cliente" type="text" />
 		</div>
-		<div class="pull-left" style="padding-left: 10px">
-			<label>Preço de compra</label>
-			<input id="id_preco_compra" type="text" class="input-small money" readonly="readonly"></input>
+		<div class="pull-left"  style="padding-left: 10px">
+			<label>Telefone</label>
+			<input id="id_telefone" type="text" class="input-medium" />
 		</div>
-		<div class="pull-left" style="padding-left: 10px">
-			<label>Preço de venda</label>
-			<input id="id_preco_venda" type="text" class="input-small money"></input>
+		<br clear="all"/>
+		<div class="pull-left">
+			<label>Endereço</label>
+			<input id="id_endr" type="text" />
+		</div>
+		<div class="pull-left"  style="padding-left: 10px">
+			<label>Condições pagto</label>
+			<select id="id_cond_pagto" class="input-small">
+				<option value="v">Á Vista</option>
+				<option value="p">A Prazo</option>
+				<option value="c">Cartão</option>
+			</select>
 		</div>
 	</div>
 	<br clear="all"/>
-	<p class="btn-group">
-		<a id="add-produto" href="#" class="btn btn-primary">
-			<i class="icon-plus icon-white"></i>
-			Adicionar produto
-		</a>
-		<a id="clear-produtos" href="#" class="btn btn-danger">
-			<i class="icon-minus icon-white"></i>
-			Limpar produtos
-		</a>
-		<a href="./?cmd=print_orcamento" class="btn">
-			<i class="icon-print"></i>
-			Imprimir orçamento
-		</a>
-	</p>
+	
 </div>
+
+
 
 <div id="preview"></div>
 
