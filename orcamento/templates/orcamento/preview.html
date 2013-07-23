@@ -21,8 +21,20 @@
 			<td>{{ item.qtde }}</td >
 			<td>{{ item.produto.valor_compra_display }}</td >
 			<td>{{ item.produto.valor_venda_display }}</td>
-			<td>{{ item.valor_item_display }}</td>
-			<td>{{ item.valor_total_display }}</td>
+			<td>
+				{% if cond_pagto == "c" %}
+				{{ item.valor_item_cartao_display }}
+				{% else %}
+				{{ item.valor_item_display }}
+				{% endif %}
+			</td>
+			<td>
+				{% if cond_pagto == "c" %}
+				{{ item.valor_total_cartao_display }}
+				{% else %}
+				{{ item.valor_total_display }}
+				{% endif %}
+			</td>
 			<td><a href="#" rel="{{ item.pk }}" class="btn btn-small btn-danger remove-item">
 					Remover
 				</a>
@@ -37,7 +49,9 @@
 	{% if items %}
 	<tfoot>
 		<th colspan="7">Valor total</th>
-		<td>{{ valor_total }}</td>
+		<td>
+			{{ valor_total }}
+		</td>
 	</tfoot>
 	{% endif %}
 </table>

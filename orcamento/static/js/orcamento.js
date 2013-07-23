@@ -54,6 +54,24 @@ $(document).ready(function () {
             return false;
         });
 
+        $("#id_cond_pagto").change(function () {
+            that.preview();
+        });
+
+        $('#print-orcamento').click(function (e) {
+            e.preventDefault();
+            
+            var data = {
+                cliente: $('#id_cliente').val(),
+                telefone: $('#id_telefone').val(),
+                endr: $('#id_endr').val(),
+                cond_pagto: $('#id_cond_pagto').val(),
+                cmd: 'print_orcamento'
+            }
+
+            window.location = './?'+$.param(data);
+        });
+
         this.preview();
     };
 
@@ -117,9 +135,11 @@ $(document).ready(function () {
             
         },
         preview: function () {
-            $.get('.', {'cmd': 'preview_orcamento'}, function (html) {
-                $('#preview').html(html);
-            });
+            $.get('.', {'cmd': 'preview_orcamento',
+                        'cond_pagto': $("#id_cond_pagto").val()}, function (html) {
+                            // previsualiza
+                            $('#preview').html(html);
+                        });
         }
     };
     

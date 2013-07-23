@@ -26,7 +26,15 @@ class Item(models.Model):
         if self.valor_item:
             return locale.format('%0.2f', self.valor_item, 1)
 
+    def valor_item_cartao_display(self):
+        if self.valor_item:
+            return locale.format('%0.2f', self.valor_item * 1.04, 1)
+
 
     def valor_total_display(self):
         if self.valor_total:
             return locale.format('%0.2f', self.valor_total, 1)
+
+    def valor_total_cartao_display(self):
+        if self.valor_total:
+            return locale.format('%0.2f', self.valor_total * 1.04, 1)
