@@ -13,7 +13,7 @@
 		</tr>
 	</thead>
 	<tbody>
-		{% for item in items %}
+		{% for item in object.items %}
 		<tr rel="{{ item.id }}">
 			<td>{{ forloop.counter }}</td>
 			<td>{{ item.produto.desc }}</td>
@@ -46,11 +46,11 @@
 		</tr>
 		{% endfor %}
 	</tbody>
-	{% if items %}
+	{% if object.items %}
 	<tfoot>
 		<th colspan="7">Valor total</th>
 		<td>
-			{{ valor_total }}
+			{{ object.valor_total }}
 		</td>
 	</tfoot>
 	{% endif %}

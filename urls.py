@@ -11,7 +11,9 @@ urlpatterns = patterns(
     url(r'^(?P<pk>\d+)/$', ProdutoUpdateView.as_view()),
     url(r'^delete/(?P<pk>\d+)/$', ProdutoDeleteView.as_view()),
 
-    url(r'^orcamento/$', OrcamentoView.as_view()),
+    url(r'^orcamento/$', ListOrcamentoView.as_view()),
+    url(r'^orcamento/(?P<pk>\d+)/$', OrcamentoView.as_view()),
+    url(r'^orcamento/add/$', AddOrcamentoView.as_view()),
     #url(r'^consignacoes/add/$', ConsignacaoAddView.as_view()),
     #url(r'^consignacoes/produtos/(?P<pk>\d+)/$',
     #    ConsignacaoProdutosView.as_view()),

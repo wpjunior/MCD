@@ -15,7 +15,7 @@
 
 {% block content %}
 <div class="page-header">
-  <h3>Novo Orçamento</h3>
+  <h3>Orçamento / Pedido</h3>
 </div>
 
 <div class="well">
@@ -59,24 +59,20 @@
 	<div id="form" class="pull-right">
 		<div class="pull-left">
 			<label>Cliente</label>
-			<input id="id_cliente" type="text" />
+			<input id="id_cliente" type="text" value="{{ object.cliente }}" disabled />
 		</div>
 		<div class="pull-left"  style="padding-left: 10px">
 			<label>Telefone</label>
-			<input id="id_telefone" type="text" class="input-medium" />
+			<input id="id_telefone" type="text" class="input-medium" value="{{ object.telefone }}" disabled />
 		</div>
 		<br clear="all"/>
 		<div class="pull-left">
 			<label>Endereço</label>
-			<input id="id_endr" type="text" />
+			<input id="id_endr" type="text" value="{{ object.endr }}" disabled />
 		</div>
 		<div class="pull-left"  style="padding-left: 10px">
 			<label>Condições pagto</label>
-			<select id="id_cond_pagto" class="input-small">
-				<option value="v">Á Vista</option>
-				<option value="p">A Prazo</option>
-				<option value="c">Cartão</option>
-			</select>
+			<input id="id_telefone" type="text" class="input-medium" value="{{ object.get_condicao_pagto_display }}" disabled />
 		</div>
 	</div>
 	<br clear="all"/>

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="page-header">
+	<h3>
+		{% if object %}Editando{% else %}Adicionando{% endif %} orçamento
+		<small>* são obrigatórios</small>
+	</h3>
+</div>
+
+<form action="." method="POST">
+	{% include "form_snippet.html" %}
+
+	<p class="btn-group">
+		<button type="button" class="btn" onclick="history.go(-1)">
+			Voltar
+		</button>
+		<input type="submit" value="Salvar" class="btn btn-primary"></input>
+	</p>
+</form>
+{% endblock %}

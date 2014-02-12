@@ -40,35 +40,25 @@
 		 <tbody>
 			 <tr>
 				 <td style="width: 110px;">Cliente</td>
-				 <td>{{ cliente }}</td>
+				 <td>{{ object.cliente }}</td>
 				 <td style="width: 90px;">Tel.</td>
-				 <td style="width: 150px;">{{ telefone }}</td>
+				 <td style="width: 150px;">{{ object.telefone }}</td>
 			 </tr>
 			 <tr>
 				 <td style="width: 110px;">Endereço</td>
-				 <td colspan="3">{{ endr }}</td>
+				 <td colspan="3">{{ object.endr }}</td>
 			 </tr>
 			 <tr>
 				 <td style="width: 110px;">Condições pgto.</td>
 				 <td colspan="3">
-					 {% if cond_pagto == 'v' %}
-					 Á vista
-					 {% endif %}
-					 
-					 {% if cond_pagto == 'p' %}
-					 Á prazo
-					 {% endif %}
-
-					 {% if cond_pagto == 'c' %}
-					 Cartão
-					 {% endif %}
+					 {{ object.get_condicao_pagto_display }}
 				 </td>
 			 </tr>
 			 <tr>
 				 <td>Vendedor</td>
 				 <td>&nbsp</td>
 				 <td style="width: 110px;">Data</td>
-				 <td>{% now "d/m/Y" %}</td>
+				 <td>{{ object.data|date:"SHORT_DATE_FORMAT" }}</td>
 			 </tr>
 		 </tbody>
 	 </table>
@@ -86,21 +76,21 @@
 			 </tr>
 		 </thead>
 		 <tbody>
-			 {% for item in items %}
+			 {% for item in object.items %}
 			 <tr>
 				 <td>{{ forloop.counter }}</td>
 				 <td>{{ item.produto.desc }}</td>
 				 <td>{% firstof item.produto.marca "-" %}</td>
 				 <td>{{ item.qtde }}</td >
 				 <td>
-					 {% if cond_pagto == "c" %}
+					 {% if object.condicao_pagto == "c" %}
 					 {{ item.valor_item_cartao_display }}
 					 {% else %}
 					 {{ item.valor_item_display }}
 					 {% endif %}
 				 </td>
 				 <td>
-					 {% if cond_pagto == "c" %}
+					 {% if object.condicao_pagto == "c" %}
 					 {{ item.valor_total_cartao_display }}
 					 {% else %}
 					 {{ item.valor_total_display }}
@@ -114,10 +104,10 @@
 			 </tr>
 			 {% endfor %}
 		 </tbody>
-		 {% if items %}
+		 {% if object.items %}
 		 <tfoot>
 			 <th colspan="5">Valor total</th>
-			 <td>{{ valor_total }}</td>
+			 <td>{{ object.valor_total }}</td>
 		 </tfoot>
 		 {% endif %}
 	 </table>

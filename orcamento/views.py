@@ -1,19 +1,30 @@
 # -*- coding: utf-8 -*-
 
+__all__ = ('AddOrcamentoView', 'OrcamentoView',
+           'ListOrcamentoView')
+
+
 import locale
 locale.setlocale(locale.LC_ALL, 'pt_BR.utf8')
 
-from django.views.generic import TemplateView
+from django.views.generic import (
+    TemplateView, CreateView, DetailView)
+
 from django.shortcuts import render
 from django.db.models import Q, Sum
 
 from MCD.produto.models import Produto
 from MCD.common.decorators import json_response
 from MCD.common.fields import MoneyInput
+from MCD.produto.responses import HybridListView
 from output import PDFView
-from .models import Item
+from .models import Orcamento, Item
 
-class OrcamentoView(TemplateView):
+class AddOrcamentoView(CreateView):
+    model = Orcamento
+
+class OrcamentoView(DetailView):
+    model = Orcamento
     template_name = "orcamento/main.html"
     get_services = ('auto_complete_produto', 'get_valores',
                     'preview_orcamento', 'print_orcamento')
@@ -54,21 +65,10 @@ class OrcamentoView(TemplateView):
             }
 
     def _preview_orcamento(self):
-        items = Item.objects.all().order_by('-pk')
-        cond_pagto = self.request.GET.get('cond_pagto')
-        
-        valor_total = items.aggregate(Sum(
-            'valor_total')).get('valor_total__sum', 0)
-        
-        if valor_total:
-            if cond_pagto == 'c':
-                valor_total = valor_total * 1.04
-                
-            valor_total = locale.format(
-                '%0.2f', valor_total, 1)
-        
         return render(
-            self.request, "orcamento/preview.html", locals())
+            self.request, "orcamento/preview.html", {
+                'object': self.get_object()
+            })
 
     @json_response
     def _add_produto(self):
@@ -81,6 +81,7 @@ class OrcamentoView(TemplateView):
 
         
         item = Item()
+        item.orcamento = self.get_object()
         item.produto = produto
         item.qtde = qtde or 1
 
@@ -105,26 +106,25 @@ class OrcamentoView(TemplateView):
 
     @json_response
     def _clear_items(self):
-        Item.objects.all().delete()
+        orcamento = self.get_object()
+        orcamento.items().delete()
 
         return {'ok': True}
 
     def _print_orcamento(self):
-        items = Item.objects.all().order_by('-pk')
-        cond_pagto = self.request.GET.get('cond_pagto')
-        cliente = self.request.GET.get('cliente')
-        endr = self.request.GET.get('endr')
-        telefone = self.request.GET.get('telefone')
-        
-        valor_total = items.aggregate(Sum(
-            'valor_total')).get('valor_total__sum', 0)
-        if valor_total:
-            if cond_pagto == 'c':
-                valor_total = valor_total * 1.04
-                
-            valor_total = locale.format(
-                '%0.2f', valor_total, 1)
-            
-        v = PDFView(locals(), "orcamento/pdf.html")
+        v = PDFView({
+            'object': self.get_object()
+        }, "orcamento/pdf.html")
 
         return v.render()
+
+class ListOrcamentoView(HybridListView):
+    sort_fields = json_object_list_fields = [
+        'id', 'cliente', 'data', 'valor_total']
+    filter_fields = ['cliente']
+    paginate_by = 20
+    allow_empty = True
+    model = Orcamento
+
+    def get_queryset(self):
+        return self.model.objects.all().order_by('-data')

@@ -10,7 +10,8 @@ ADMINS = (
 )
 
 MANAGERS = ADMINS
-
+DATE_FORMAT = 'd/m/Y'
+DATETIME_FORMAT = 'd/m/Y - H:i:s'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.

@@ -62,10 +62,6 @@ $(document).ready(function () {
             e.preventDefault();
             
             var data = {
-                cliente: $('#id_cliente').val(),
-                telefone: $('#id_telefone').val(),
-                endr: $('#id_endr').val(),
-                cond_pagto: $('#id_cond_pagto').val(),
                 cmd: 'print_orcamento'
             }
 

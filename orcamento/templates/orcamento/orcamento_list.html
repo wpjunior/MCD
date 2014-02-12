@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}Orçamentos{% endblock %}
+{% block header %}
+<script type="text/javascript" src="{{ STATIC_URL }}js/jquery.dataTables.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/lethus.bootstrapListBuilder.js"></script>
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/lethus.bootstrapListBuilder.css" />
+
+<script type="text/javascript">
+$(document).ready( function (e) {
+    $("#list table").listbuilder({iDisplayLength: 100});
+});
+</script>
+
+
+{% endblock %}
+{% block content %}
+<div class="page-header">
+  <h3>Gerenciando orçamentos</h3>
+</div>
+
+<div id="toolbar" class="btn-group">
+  <a id="add-btn" class="btn" href="/orcamento/add/">
+    <i class="icon-plus"></i> Adicionar
+  </a>
+  <a id="edit-btn" class="btn alone-action dblclick" href="/orcamento/update/%d/">
+    <i class="icon-pencil"></i> Editar
+  </a>
+  <a id="delete-btn" class="alone-action btn" href="/orcamento/%d/">
+      <i class="icon-pencil"></i> Produtos
+  </a>
+
+  <a id="edit-btn" class="btn alone-action" href="/orcamento/%d/?cmd=print_orcamento">
+    <i class="icon-print"></i> Imprimir
+  </a>
+</div>
+
+<div id="list">
+	<table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered">
+		<thead>
+			<tr>
+				<th scope="col">ID</th>
+				<th scope="col">Cliente</th>
+				<th scope="col">Data</th>
+				<th scope="col">Valor</th>
+			</tr>
+		</thead>
+		<tbody class="ui-corner-all">
+		</tbody>
+	</table>
+</div>
+
+{% endblock %}

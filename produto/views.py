@@ -19,10 +19,11 @@ class ProdutoListView(HybridListView):
     json_object_list_fields = [
         'id', 'desc', 'marca',
         'valor_compra_display',
-        'valor_venda_display']
+        'valor_venda_display',
+        'qtde']
     
     sort_fields = ['id', 'desc', 'marca', 'valor_compra',
-                   'valor_venda']
+                   'valor_venda', 'qtde']
     filter_fields = ['desc', 'marca']
     paginate_by = 20
     allow_empty = True

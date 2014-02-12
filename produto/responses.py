@@ -1,4 +1,4 @@
-﻿#!/usr/bin/env python
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
 
@@ -12,6 +12,10 @@ from django.utils.dateformat import format
 from django.views.generic import ListView
 from django.http import HttpResponse
 from django.db.models import Q
+from django.conf import settings
+
+DATETIME_FORMAT = settings.DATETIME_FORMAT
+DATE_FORMAT = settings.DATE_FORMAT
 
 class JSONResponse(HttpResponse):
     """ JSON response class """

@@ -29,6 +29,9 @@ $(document).ready( function (e) {
   <a id="delete-btn" class="alone-action btn" href="{{ module_url }}/delete/%d/">
       <i class="icon-remove"></i> Apagar
   </a>
+  <a id="movimentacao-btn" class="alone-action btn" href="{{ module_url }}/movimentacao/%d/">
+      <i class="icon-share"></i> Movimentação
+  </a>
 </div>
 
 <div id="list">
@@ -40,6 +43,7 @@ $(document).ready( function (e) {
 				<th scope="col">Marca</th>
 				<th scope="col">Valor Compra</th>
 				<th scope="col">Valor Venda</th>
+				<th scope="col">Quantidade em estoque</th>
 			</tr>
 		</thead>
 		<tbody class="ui-corner-all">

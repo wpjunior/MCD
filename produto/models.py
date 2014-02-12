@@ -21,6 +21,10 @@ class Produto(models.Model):
     valor_venda = models.FloatField(
         verbose_name="Valor de venda")
 
+    qtde = models.FloatField(
+        verbose_name="Quantidade em estoque",
+        default=0)
+
     def valor_venda_display(self):
         if self.valor_venda:
             return locale.format('%0.2f', self.valor_venda, 1)
@@ -38,3 +42,24 @@ class Produto(models.Model):
         
     class Meta:
         ordering = ['desc']
+        
+class ProdutoMovimentacao(models.Model):
+    produto = models.ForeignKey(Produto)
+    data = models.DateTimeField(auto_now=True)
+
+    desc = models.CharField(
+        verbose_name=u"Descrição",
+        max_length=200)
+
+    qtde = models.FloatField(
+        verbose_name="Quantidade")
+
+    saldo_ant = models.FloatField(
+        verbose_name="Saldo anterior",
+        default=0)
+
+    saldo_final = models.FloatField(
+        verbose_name="Saldo final",
+        default=0)
+        
+        
